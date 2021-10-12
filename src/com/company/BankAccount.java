@@ -17,11 +17,9 @@ public class BankAccount {
     }
     public void withDraw(int sum) throws LimitException {
         if(sum > getAmount()){
-            setAmount(getAmount() - getAmount());
-            throw new LimitException("Запрашиваемая сумма которую вы указали не соответсвует вашему счету, была выведена сумма оставшаяся на счете.", sum);
-
-        }else
+            throw new LimitException("У тебя нет такой суммы, бомж.", sum);
+        }else{
         setAmount(getAmount() - sum);
+        }
     }
-
 }
