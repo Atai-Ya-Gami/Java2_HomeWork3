@@ -3,22 +3,23 @@ package com.company;
 public class Main {
 
     public static void main(String[] args) {
-        BankAccount bankAccount = new BankAccount();
-        bankAccount.deposit(20000);
-        System.out.println(bankAccount.getAmount());
-        try {
+            BankAccount bankAccount = new BankAccount();
+            bankAccount.deposit(20000.0);
+
             while (true) {
-                bankAccount.withDraw(6000);
-                System.out.println("Со счета были сняты средства, ваш счет равен: " + bankAccount.getAmount());
+                try {
+                    bankAccount.withDraw(6000);
+
+                }catch (LimitException limitException) {
+                    System.out.println(limitException.getMessage());
+                    try {
+                        bankAccount.withDraw(2000);
+                        System.out.println("У вас не осталось денег");
+                    } catch (LimitException limitException1) {
+                        System.out.println(limitException1.getMessage());
+                    }
+                    break;
+                }
             }
-        } catch (LimitException e) {
-            System.out.println("У тебя нет такой суммы, бомж.");
-        }finally {
-            bankAccount.setAmount(bankAccount.getAmount() - bankAccount.getAmount());
-            System.out.println("Выведены оставщиеся средства." +
-                    "\nОстаток равен: " + bankAccount.getAmount());
         }
-
     }
-}
-

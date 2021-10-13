@@ -1,25 +1,26 @@
 package com.company;
 
+import javax.naming.NameAlreadyBoundException;
+
 public class BankAccount {
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+    private double amount;
 
     public double getAmount() {
         return amount;
     }
 
-    private double amount = 0;
-    private double sum;
-    public void deposit (double sum){
-        System.out.println("Вы пополнили ваш счет на : ");
-        setAmount(getAmount() + sum);
-    }
-    public void withDraw(int sum) throws LimitException {
-        if(sum > getAmount()){
-            throw new LimitException("У тебя нет такой суммы, бомж.", sum);
-        }else{
-        setAmount(getAmount() - sum);
+    public void deposit(double sum) {
+        if (amount == 0) {
+            amount = sum;
+        } else {
+            System.out.println(amount + sum);
         }
+    }
+
+    public void withDraw(int sum) throws LimitException {
+        if (sum > amount) {
+            throw new LimitException("Запрашиваемая сумма больше чем сумма на счете", amount);
+        }
+        System.out.println(amount = amount - sum);
     }
 }
